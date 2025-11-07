@@ -1,5 +1,6 @@
 const express = require('express');
 const {getallBook, getBookbyId,getBookbyTitle, createBook, updateBookById, deleteBookById} = require('../controllers/books.controller');
+const {getbookvalidatemiddleware,createbookvalidatemiddleware,updatebookvalidatemiddleware, deletebookvalidatemiddleware} = require('../middlewares/book.validation.middleware')
 
 
 const router = express.Router();
@@ -15,16 +16,16 @@ router.get('/',getbookvalidatemiddleware, getallBook);
 // create new book
 // POST /api/v1/books/
 
-router.post('/', createBook)
+router.post('/',createbookvalidatemiddleware, createBook)
 
 
 // update existing book
 // PATCH /api/v1/books/:id
-router.patch('/:id', updateBookById)
+router.patch('/:id',updatebookvalidatemiddleware, updateBookById)
 
 
 // Delete existing book
 // DELETE /api/v1/books/:id
-router.delete('/:id', deleteBookById)
+router.delete('/:id',deletebookvalidatemiddleware, deleteBookById)
 
 module.exports = router;
